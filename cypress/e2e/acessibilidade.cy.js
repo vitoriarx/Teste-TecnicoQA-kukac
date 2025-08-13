@@ -1,5 +1,5 @@
 describe('Acessibilidade • Smoke', () => {
-  it('Kanban - logar violações críticas e sérias sem falhar o teste', () => {
+  it('Kanban - loga violações críticas/sérias sem falhar', () => {
     cy.visit('/');
     cy.injectAxe();
 
@@ -8,11 +8,12 @@ describe('Acessibilidade • Smoke', () => {
       { includedImpacts: ['critical', 'serious'] },
       (violations) => {
         if (violations.length) {
-          cy.task('log', ` ${violations.length} violações de acessibilidade encontradas:`);
-          violations.forEach(v => {
-            cy.task('log', `${v.id} [${v.impact}] - ${v.help} (${v.nodes.length} elementos)`);
-          });
+          cy.log(`${violations.length} violações de acessibilidade encontradas`);
+          violations.forEach(v =>
+            cy.log(`${v.id} [${v.impact}] - ${v.help} (${v.nodes.length}) -> ${v.helpUrl}`)
+          );
         }
+        // sem expect pra não falha o teste
       }
     );
   });

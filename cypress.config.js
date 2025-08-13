@@ -1,3 +1,4 @@
+// cypress.config.js
 const { defineConfig } = require('cypress');
 
 module.exports = defineConfig({
@@ -7,7 +8,17 @@ module.exports = defineConfig({
     viewportHeight: 768,
     retries: { runMode: 2, openMode: 0 },
     video: true,
-    screenshotOnRunFailure: true
+    screenshotOnRunFailure: true,
+
+    setupNodeEvents(on, config) {
+      on('task', {
+        log(message) {
+          console.log(message);
+          return null;
+        },
+      });
+      return config;
+    },
   },
   reporter: 'mochawesome',
   reporterOptions: {
@@ -17,5 +28,5 @@ module.exports = defineConfig({
     json: true
   },
   screenshotsFolder: 'cypress/screenshots',
-  videosFolder: 'cypress/videos',
+  videosFolder: 'cypress/videos'
 });

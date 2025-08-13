@@ -1,20 +1,15 @@
+# .github/workflows/e2e.yml
 name: e2e
 
-on:
-  push:
-  pull_request:
-  workflow_dispatch:
+on: [push, pull_request, workflow_dispatch]
 
 jobs:
   cypress:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
@@ -22,36 +17,41 @@ jobs:
       - name: Install deps
         run: npm ci
 
-      # Garante binário do Cypress no runner
       - name: Verify Cypress binary
         run: npx cypress verify
 
-      # Executa Cypress gerando JSONs do Mochawesome
-      - name: Run Cypress (headless + Mochawesome)
+      - name: Run Cypress (headless)
         uses: cypress-io/github-action@v6
         with:
-          command: npx cypress run --reporter mochawesome --reporter-options reportDir=cypress/reports,overwrite=false,html=false,json=true
+          # com reporter definido no cypress.config.js, basta:
+          command: npx cypress run
+        env:
+          TERM: xterm
 
-      # (Novo) Gera o HTML do Mochawesome a partir dos JSONs
-      - name: Merge JSONs e gerar HTML
+      - name: Merge JSONs e gerar HTML (se houver)
         if: ${{ always() }}
+        shell: bash
         run: |
-          npx mochawesome-merge "cypress/reports/*.json" > cypress/reports/mochawesome.json
-          npx marge cypress/reports/mochawesome.json -f index -o cypress/reports/html
+          shopt -s nullglob
+          files=(cypress/reports/*.json)
+          if [ ${#files[@]} -gt 0 ]; then
+            npx mochawesome-merge "cypress/reports/*.json" > cypress/reports/mochawesome.json
+            npx marge cypress/reports/mochawesome.json -f index -o cypress/reports/html
+          else
+            echo "Nenhum JSON do Mochawesome encontrado; pulando geração de HTML."
+          fi
 
-      # (Opcional) Listagem para debug se ainda falhar
-      - name: Listar arquivos gerados
+      - name: Listar arquivos gerados (debug)
         if: ${{ always() }}
         run: ls -R
 
-      # Publica artefatos mesmo se os testes falharem
       - name: Upload Mochawesome HTML
         if: ${{ always() }}
         uses: actions/upload-artifact@v4
         with:
           name: mochawesome-html
           path: cypress/reports/html
-          if-no-files-found: error
+          if-no-files-found: ignore   # não derruba o job se não houver HTML
 
       - name: Upload videos
         if: ${{ always() }}
