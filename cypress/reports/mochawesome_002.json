@@ -1,0 +1,143 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 3,
+    "passes": 3,
+    "pending": 0,
+    "failures": 0,
+    "start": "2025-08-13T18:45:40.486Z",
+    "end": "2025-08-13T18:45:43.165Z",
+    "duration": 2679,
+    "testsRegistered": 3,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "3b3ade92-ecf6-4e0f-a779-3c712ac8b625",
+      "title": "",
+      "fullFile": "cypress\\e2e\\func_tarefa.cy.js",
+      "file": "cypress\\e2e\\func_tarefa.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "0dbae723-7ea0-429e-a2df-e15085b02c21",
+          "title": "Funcionalidade: Tarefas no Kanban",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Criação de uma nova tarefa",
+              "fullTitle": "Funcionalidade: Tarefas no Kanban Criação de uma nova tarefa",
+              "timedOut": null,
+              "duration": 873,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.log('Criando uma nova tarefa');\ncy.contains(/Adicionar tarefa/i).click();\ncy.get('.sc-gsnTZi').type(nomeTarefa);\ncy.get('.btn').click();\ncy.contains(nomeTarefa).should('exist');\ncy.log('Tarefa criada com sucesso');",
+              "err": {},
+              "uuid": "674b7082-6a30-4399-a9ed-459fcc416c18",
+              "parentUUID": "0dbae723-7ea0-429e-a2df-e15085b02c21",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Edição de uma tarefa",
+              "fullTitle": "Funcionalidade: Tarefas no Kanban Edição de uma tarefa",
+              "timedOut": null,
+              "duration": 1429,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const nomeTarefa = 'Tarefa de teste';\nconst nomeTarefaEditada = 'tarefa foi editada';\ncy.contains(/Adicionar tarefa/i).click(); // garante que existe uma tarefa para editar\ncy.get('.sc-gsnTZi').clear().type(nomeTarefa);\ncy.get('.btn').click();\ncy.contains(nomeTarefa).should('exist');\ncy.contains('div[draggable=\"true\"]', nomeTarefa, {\n  timeout: 10000\n}).click(); // abre o card pelo próprio texto da tarefa\ncy.get('[id$=\"ModalTitle\"]').find('.custom-input > p').click(); // foca no campo de título do modal e edita\ncy.get('.sc-gsnTZi').clear().type(nomeTarefaEditada);\ncy.get('.btn').click();\ncy.contains(nomeTarefaEditada).should('exist'); // valida alteração e fecha o modal clicando fora\ncy.get('body').click(0, 0);",
+              "err": {},
+              "uuid": "7a48db8e-6857-424b-a5a1-e74d3d743b3d",
+              "parentUUID": "0dbae723-7ea0-429e-a2df-e15085b02c21",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Exclusão de uma tarefa",
+              "fullTitle": "Funcionalidade: Tarefas no Kanban Exclusão de uma tarefa",
+              "timedOut": null,
+              "duration": 296,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.log('Excluindo a primeira tarefa');\ncy.get('.drop-list').first().find('div[draggable=\"true\"]').its('length').then(quantidadeAntes => {\n  // Conta antes\n  cy.get('.drop-list').first().find('.content header svg').invoke('removeClass', 'trash'); // Torna visível o ícone da lixeira\n  cy.get('.drop-list').first().find('.content header svg').first().click({\n    force: true\n  }); // Clica no ícone da lixeira\n  cy.get('.drop-list').first().find('div[draggable=\"true\"]', {\n    timeout: 10000\n  }) // Verifica se o total diminuiu\n  .its('length').should('be.lt', quantidadeAntes);\n});\ncy.log('Tarefa excluída com sucesso');",
+              "err": {},
+              "uuid": "c404fd1a-fdb4-433d-8c8c-ae24a9e3895f",
+              "parentUUID": "0dbae723-7ea0-429e-a2df-e15085b02c21",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "674b7082-6a30-4399-a9ed-459fcc416c18",
+            "7a48db8e-6857-424b-a5a1-e74d3d743b3d",
+            "c404fd1a-fdb4-433d-8c8c-ae24a9e3895f"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 2598,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}

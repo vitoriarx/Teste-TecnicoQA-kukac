@@ -1,0 +1,109 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 0,
+    "pending": 0,
+    "failures": 1,
+    "start": "2025-08-13T18:49:30.318Z",
+    "end": "2025-08-13T18:49:33.233Z",
+    "duration": 2915,
+    "testsRegistered": 1,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "4eb5b858-3a09-4d09-b5a6-7e49705ec886",
+      "title": "",
+      "fullFile": "cypress\\e2e\\acessibilidade.cy.js",
+      "file": "cypress\\e2e\\acessibilidade.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "595da067-0ad0-4766-b0a3-f8a7af774afe",
+          "title": "Acessibilidade • Smoke",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "kanBan sem violações críticas",
+              "fullTitle": "Acessibilidade • Smoke kanBan sem violações críticas",
+              "timedOut": null,
+              "duration": 2871,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('/');\ncy.injectAxe();\ncy.checkA11y(null, {\n  includedImpacts: ['critical', 'serious']\n});",
+              "err": {
+                "message": "AssertionError: 4 accessibility violations were detected: expected 4 to equal 0",
+                "estack": "AssertionError: 4 accessibility violations were detected: expected 4 to equal 0\n    at Context.eval (webpack://kanban-kukac/./node_modules/cypress-axe/dist/index.js:100:0)\n    at getRet (https://kanban-dusky-five.vercel.app/__cypress/runner/cypress_runner.js:121066:20)\n    at tryCatcher (https://kanban-dusky-five.vercel.app/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise.attempt.Promise.try (https://kanban-dusky-five.vercel.app/__cypress/runner/cypress_runner.js:4285:29)\n    at Context.thenFn (https://kanban-dusky-five.vercel.app/__cypress/runner/cypress_runner.js:121077:66)\n    at Context.then (https://kanban-dusky-five.vercel.app/__cypress/runner/cypress_runner.js:121328:21)\n    at wrapped (https://kanban-dusky-five.vercel.app/__cypress/runner/cypress_runner.js:141671:19)",
+                "diff": null
+              },
+              "uuid": "3787114d-6815-46cf-ad8d-762c71d2529d",
+              "parentUUID": "595da067-0ad0-4766-b0a3-f8a7af774afe",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "3787114d-6815-46cf-ad8d-762c71d2529d"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 2871,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}
