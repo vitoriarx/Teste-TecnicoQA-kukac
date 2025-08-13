@@ -22,13 +22,29 @@ jobs:
       - name: Install deps
         run: npm ci
 
-      # Execute Cypress com Mochawesome (usa seus scripts e gera JSON/HTML)
-      - name: Run Cypress (Mochawesome)
-        run: npm run test
-        # se você quer apenas chrome:
-        # run: npm run clean:reports && npx cypress run --browser chrome --reporter mochawesome --reporter-options reportDir=cypress/reports,overwrite=false,html=false,json=true && npm run report:merge && npm run report:gen
+      # Garante binário do Cypress no runner
+      - name: Verify Cypress binary
+        run: npx cypress verify
 
-      # Mesmo se o teste falhar, suba os artefatos para análise
+      # Executa Cypress gerando JSONs do Mochawesome
+      - name: Run Cypress (headless + Mochawesome)
+        uses: cypress-io/github-action@v6
+        with:
+          command: npx cypress run --reporter mochawesome --reporter-options reportDir=cypress/reports,overwrite=false,html=false,json=true
+
+      # (Novo) Gera o HTML do Mochawesome a partir dos JSONs
+      - name: Merge JSONs e gerar HTML
+        if: ${{ always() }}
+        run: |
+          npx mochawesome-merge "cypress/reports/*.json" > cypress/reports/mochawesome.json
+          npx marge cypress/reports/mochawesome.json -f index -o cypress/reports/html
+
+      # (Opcional) Listagem para debug se ainda falhar
+      - name: Listar arquivos gerados
+        if: ${{ always() }}
+        run: ls -R
+
+      # Publica artefatos mesmo se os testes falharem
       - name: Upload Mochawesome HTML
         if: ${{ always() }}
         uses: actions/upload-artifact@v4
