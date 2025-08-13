@@ -1,7 +1,7 @@
 # Teste kanBan - Kukac
 
 **Automação de testes end-to-end + relatório de testes manuais + documentação**  
-Este repositório contém a implementação e documentação do processo de QA aplicado ao sistema **Kanban da Kukac**, cobrindo desde a análise exploratória até a automação dos fluxos principais, com integração entre Jira, relatório PDF e código-fonte.
+Este repositório contém a implementação e documentação do processo de qualidade de software aplicado ao sistema **Kanban da Kukac**, cobrindo desde a análise exploratória até a automação dos fluxos principais, com integração entre Jira, relatório PDF e código-fonte.
 
 ---
 
