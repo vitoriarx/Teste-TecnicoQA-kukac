@@ -22,10 +22,15 @@ jobs:
       - name: Install deps
         run: npm ci
 
+      # Execute Cypress com Mochawesome (usa seus scripts e gera JSON/HTML)
       - name: Run Cypress (Mochawesome)
         run: npm run test
+        # se você quer apenas chrome:
+        # run: npm run clean:reports && npx cypress run --browser chrome --reporter mochawesome --reporter-options reportDir=cypress/reports,overwrite=false,html=false,json=true && npm run report:merge && npm run report:gen
 
+      # Mesmo se o teste falhar, suba os artefatos para análise
       - name: Upload Mochawesome HTML
+        if: ${{ always() }}
         uses: actions/upload-artifact@v4
         with:
           name: mochawesome-html
@@ -33,6 +38,7 @@ jobs:
           if-no-files-found: error
 
       - name: Upload videos
+        if: ${{ always() }}
         uses: actions/upload-artifact@v4
         with:
           name: cypress-videos
@@ -40,6 +46,7 @@ jobs:
           if-no-files-found: ignore
 
       - name: Upload screenshots
+        if: ${{ always() }}
         uses: actions/upload-artifact@v4
         with:
           name: cypress-screenshots
