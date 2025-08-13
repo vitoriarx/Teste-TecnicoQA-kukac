@@ -73,6 +73,8 @@ npx cypress run
 
 
 ### Integração com Jira
+[![Abrir Jira](https://img.shields.io/badge/📄_Abrir-Jira-blue?style=for-the-badge)](https://vitoriasantos78690.atlassian.net/jira/software/projects/KC/boards/34?atlOrigin=eyJpIjoiNGMxNTBhZDEzN2ViNDcxNWE4Y2ExYmI2Yjg3MjZkMTQiLCJwIjoiaiJ9)
+
 O ciclo de testes foi gerenciado no Jira, incluindo:
 
 - Casos de teste detalhados 
